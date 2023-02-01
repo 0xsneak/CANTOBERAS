@@ -851,6 +851,7 @@ if (window.ethereum) {
       // Call the whack function of the contract
       contract.methods.mint().send({from: userAddress, value: gasPrice}).then(function(receipt) {});
     }
+
   </script>
 </head>
 <body>
@@ -880,5 +881,36 @@ if (window.ethereum) {
 
   RAWRR!
   </pre>
+  <br>
+  <pre class="container2">
+    LATEST MINTED BERA!
+  </pre>
+  <pre class="container2" id="nft-display">
+</pre>
+
+<script>
+async function displayNFT() {
+  const id = await getTotalSupply();
+  // Call the tokenURI method to get the URL for the NFT
+  const tokenURI = await contract.methods.tokenURI(id).call();
+
+  // Extract the hash from the tokenURI
+  const hash = tokenURI.split("/").pop();
+
+  // Use the hash to display the NFT on the frontend
+  const img = document.createElement("img");
+  img.src = "https://ipfs.io/ipfs/QmTdov2qsNj6AMszyWMAHRPpRa3PQRZybEqaxrr6ws1Qqx/" + hash + ".png";
+  document.getElementById("nft-display").appendChild(img);
+}
+  async function getTotalSupply() {
+  // call the totalSupply() method on the contract
+  const totalSupply = await contract.methods.totalSupply().call();
+
+  return totalSupply;
+}
+
+  // Call the function to display the NFT
+  displayNFT();
+</script>
 </body>
 </html>
