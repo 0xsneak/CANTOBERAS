@@ -881,6 +881,8 @@ if (window.ethereum) {
 
   RAWRR!
   </pre>
+  <pre class="container2" id="num-left">
+</pre>
   <br>
   <pre class="container2">
     LATEST MINTED BERA!
@@ -889,6 +891,15 @@ if (window.ethereum) {
 </pre>
 
 <script>
+async function numLeft() {
+  const id = await getTotalSupply();
+  let num = 3333-id;
+  // Create a text node with the message
+  const textNode = document.createTextNode(`There are ${num} beras left!`);
+  // Append the text node to the element with id "num-left"
+  document.getElementById("num-left").appendChild(textNode);
+}
+
 async function displayNFT() {
   const id = await getTotalSupply();
   // Call the tokenURI method to get the URL for the NFT
@@ -911,6 +922,7 @@ async function displayNFT() {
 
   // Call the function to display the NFT
   displayNFT();
+  numLeft();
 </script>
 </body>
 </html>
