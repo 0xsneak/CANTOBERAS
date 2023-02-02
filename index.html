@@ -894,8 +894,6 @@ FUN BERAS!
 MINT YOUR BERA NOW FOR 50 CANTO!
 
 RAWRR!
-
-On twitter @CantoBeras!
     _____________________________________________
   </pre>
   <pre class="container2" id="num-left">
@@ -938,12 +936,38 @@ async function displayNFT() {
   return totalSupply;
 }
 
+function sendBera(address, id) {
+  // call the totalSupply() method on the contract
+  contract.methods.safeTransferFrom(userAddress, address, id).send({from: userAddress}).then(function(receipt) {});
+}
+
   // Call the function to display the NFT
   displayNFT();
   numLeft();
+
 </script>
 <br>
+<div>SEND A BERA!</div>
 <br>
+<div>
+    <label for="address">Address TO SEND TO:</label>
+    <input type="text" id="address">
+  </div>
+  
+  <div>
+    <label for="tokenID">Token ID TO SEND:</label>
+    <input type="text" id="tokenID">
+  </div>
+  
+  <button id="sendBeraButton">Send Bera</button>
+  <script>  const sendBeraButton = document.getElementById("sendBeraButton");
+    if (sendBeraButton) {
+      sendBeraButton.addEventListener("click", function() {
+        const address = document.getElementById("address").value;
+        const tokenID = document.getElementById("tokenID").value;
+        sendBera(address, tokenID);
+      });
+    }</script>
 <br>
 <br>
 </body>
