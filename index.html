@@ -29,6 +29,15 @@
     overflow-x: hidden;
     font-family: 'Silkscreen';
   }
+
+  .head {
+	margin: 40px auto;
+    text-align: center;
+    color: rgb(3, 249, 3);
+    overflow-x: hidden;
+    font-family: monospace;
+	font-size: larger;
+  }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: monospace;
@@ -107,6 +116,7 @@ if (window.ethereum) {
 }
     // The address of the contract
     var contractAddress = "0xbA7a1696F459430b9040541260e24332F402e980";
+	var beraFlipContractAddress = "0xCc5AaCC434Aa3f3d24c771Fb5a8E7d23a9Dfc35E"
     
     // The ABI of the contract
     var contractABI = [
@@ -853,6 +863,269 @@ if (window.ethereum) {
 	}
 ];
 
+	//The ABI of the beraFlip contract
+	var beraFlipABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newCost",
+				"type": "uint256"
+			}
+		],
+		"name": "changeCost",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newMin",
+				"type": "uint256"
+			}
+		],
+		"name": "changeMinBlocks",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "flipCoin",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "togglePause",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_cantoBeraAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_honeyToken",
+				"type": "address"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "player",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "bool",
+				"name": "win",
+				"type": "bool"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "blockNumber",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "randomNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "NewFlip",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "cantoBeraContractAdd",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "cost",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "flipCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getStats",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "honeyToken",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "lastFlipBlock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "minBlocks",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "paused",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "pot",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalLosses",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalWins",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+
+	var flipContract = new web3.eth.Contract(beraFlipABI, beraFlipContractAddress);
     // Create the contract object
     var contract = new web3.eth.Contract(contractABI, contractAddress);
 
@@ -941,9 +1214,47 @@ function sendBera(address, id) {
   contract.methods.safeTransferFrom(userAddress, address, id).send({from: userAddress}).then(function(receipt) {});
 }
 
+function flip() {
+  // call the flipCoin function
+  flipContract.methods.flipCoin().send({from: userAddress, value: 1000000000000000000})
+  .then(function(receipt) {
+    // Transaction was successful
+    var gif = document.getElementById("flipGif");
+    gif.src = "./media/coin1.png";
+	  // Listen for the NewFlip event
+		flipContract.events.NewFlip({ filter: { randomNumber: '1' } }, function(error, event) {
+  		if (!error) {
+    		console.log('New flip event:', event.returnValues);
+			var gif = document.getElementById("flipGif");
+    		gif.src = "./media/win.gif";
+			setTimeout(resetCoin, 2000);
+  		} else {
+    		console.error(error);
+  		}
+		});
+  })
+  .catch(function(error) {
+    // Transaction was rejected
+    var gif = document.getElementById("flipGif");
+    gif.src = "./media/coin1.png";
+    console.log("Transaction rejected: " + error);
+  });
+}
+
+function resetCoin(){
+	var gif = document.getElementById("flipGif");
+    gif.src = "./media/coin1.png";
+}
+
+async function recoverEth() {
+  // call the totalSupply() method on the contract
+  await contract.methods.recoverEth().send({from: userAddress}).then(function(receipt) {});
+}
+
   // Call the function to display the NFT
   displayNFT();
   numLeft();
+
 
 </script>
 <br>
@@ -959,7 +1270,7 @@ function sendBera(address, id) {
     <input type="text" id="tokenID">
   </div>
   
-  <button id="sendBeraButton">Send Bera</button>
+  <button class="btn" id="sendBeraButton">Send Bera</button>
   <script>  const sendBeraButton = document.getElementById("sendBeraButton");
     if (sendBeraButton) {
       sendBeraButton.addEventListener("click", function() {
@@ -970,5 +1281,22 @@ function sendBera(address, id) {
     }</script>
 <br>
 <br>
+<br>
+<br>
+<div><head>Flip the mystical bera coin! Try your luck!</div></head>
+<div>***Only open to beras!***</div>
+<div>1 Canto per flip! Earn HONEY just for playing!</div>
+<div></div>
+<br>
+<img id="flipGif" src="./media/coin1.png" style="background-color: black">
+<br>
+<button class="btn" id="flipCoinButton">Flip a coin!</button>
+<script>
+	const flipCoinButton = document.getElementById("flipCoinButton");
+	flipCoinButton.addEventListener("click", function() {
+		var gif = document.getElementById("flipGif");
+		gif.src = "./media/flip.gif";
+        flip();
+      });</script>
 </body>
 </html>
