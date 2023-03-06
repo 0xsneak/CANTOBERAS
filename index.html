@@ -1225,7 +1225,7 @@ function flip() {
 		flipContract.events.NewFlip({ filter: { randomNumber: '1' } }, function(error, event) {
   		if (!error) {
     		console.log('New flip event:', event.returnValues);
-			var gif = document.getElementById("flipGif");
+		var gif = document.getElementById("flipGif");
     		gif.src = "./media/win.gif";
 			setTimeout(resetCoin, 2000);
   		} else {
